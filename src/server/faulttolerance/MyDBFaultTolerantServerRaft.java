@@ -39,7 +39,7 @@ import java.util.stream.Collectors;
  * - Set-based duplicate tracking
  * - Different timing parameters
  */
-public class MyDBFaultTolerantServerZK extends server.MyDBSingleServer {
+public class MyDBFaultTolerantServerRaft extends server.MyDBSingleServer {
 
     public static final int SLEEP = 1000;
     public static final boolean DROP_TABLES_AFTER_TESTS = true;
@@ -401,7 +401,7 @@ public class MyDBFaultTolerantServerZK extends server.MyDBSingleServer {
         }
     }
 
-    public MyDBFaultTolerantServerZK(NodeConfig<String> nodeConfig, String myID,
+    public MyDBFaultTolerantServerRaft(NodeConfig<String> nodeConfig, String myID,
                                      InetSocketAddress isaDB) throws IOException {
         super(new InetSocketAddress(nodeConfig.getNodeAddress(myID),
                 nodeConfig.getNodePort(myID) - ReplicatedServer.SERVER_PORT_OFFSET),
@@ -708,7 +708,7 @@ public class MyDBFaultTolerantServerZK extends server.MyDBSingleServer {
 
     public static void main(String[] args) throws IOException {
         if (args.length < 2) {
-            System.err.println("Usage: MyDBFaultTolerantServerZK <config> <id>");
+            System.err.println("Usage: MyDBFaultTolerantServerRaft <config> <id>");
             System.exit(1);
         }
 
@@ -721,7 +721,7 @@ public class MyDBFaultTolerantServerZK extends server.MyDBSingleServer {
             Util.getInetSocketAddressFromString(args[2]) :
             new InetSocketAddress("localhost", 9042);
 
-        MyDBFaultTolerantServerZK server = new MyDBFaultTolerantServerZK(
+        MyDBFaultTolerantServerRaft server = new MyDBFaultTolerantServerRaft(
             config, args[1], dbAddr);
         
         System.out.println("Server " + args[1] + " running");
